@@ -1,0 +1,167 @@
+body{
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#content{
+    display: flex;
+}
+
+#orderMenu{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+#orderImg{
+    width: 100%;
+}
+
+#orderImg img{
+    height: 280px;
+    min-width: 100%;
+    object-fit: cover;    
+}
+
+#orderRestaurant{
+    width: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#orderRestaurant h2{
+    margin: 0;
+}
+
+#bewertung p{
+    margin: 0;
+}
+
+#bewertung{
+    display: flex;
+    gap: 12px;    
+    align-items: center;
+    color: #FF7F01;
+}
+
+#bewertung img{
+    height: 40px;
+}
+
+#orderList{
+    width: calc(100% - 80px);
+    display: flex;
+    gap: 30px;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.048);
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+#orderList::-webkit-scrollbar{
+    display: none;
+}
+
+#orderList img{
+    width: 32px;
+    height:32px;
+    padding-left: 16px;
+}
+
+#orderList p{
+    font-size: 16px;
+}
+
+#orderList p:hover{
+    cursor: pointer;
+    text-decoration: double;
+}
+
+.gericht{
+    color: #FF7F01;
+}
+
+#orderMeals{
+    width: calc(100% - 80px);
+    background-color: rgba(0, 0, 0, 0.048);    
+}
+
+#orderMeals h3{
+    padding-left: 16px;
+}
+
+#gericht{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:24px;
+    align-items: center;
+    
+}
+
+.menuCards{
+    width: calc(100% - 80px);
+    margin: 0 40px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.gerichtLeft{
+    padding-left: 16px;
+}
+
+.gerichtRight img{
+    background-color: rgba(0, 0, 0, 0.308);
+    border-bottom-left-radius: 8px;
+}
+
+.gerichtRight img:hover{
+    cursor: pointer;
+}
+
+
+
+
+/* hier WarenkorbStyle */
+
+#warenkorb{
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 28%;
+    border-left: 2px solid black;
+    box-shadow: 0 0 4px black;
+    background-color: white;
+}
+
+#warenkorbHeader{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+#leererKorb{
+    margin-top: 40px;
+    color: rgba(0, 0, 0, 0.192);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+#orderMin{
+    font-size: 12px;
+}
+
+#warenkorbBestellen button{
+    border: none;
+    background-color: #FF7F01;
+    color: white;
+    width: calc(100% - 30%);
+    height: 54px;
+
+}

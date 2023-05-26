@@ -1,16 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js"></script>
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="/img/mealIcon.png">
+    <link rel="stylesheet" href="styleHeader.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="scriptTemplates.js"></script>
+    <script src="scriptContent.js"></script>
+    <script src="scriptArrays.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Fooderando</title>
 </head>
-<body>
-    <input type="text" id="menu"><br>
-    <input type="number" name="" id="price"><br>
-    <button onclick="onAddMenu()"></button>
-    <h1>Neue Überschrift</h1>
+
+<body onload="includeHTML(), render()">
+    <div w3-include-html="templates/header.html"></div>
+    <div id="content">
+        <div id="orderMenu">
+            <div id="orderImg">
+                <img src="/img/pizza2.jpg" alt="">
+            </div>
+            <div id="orderRestaurant">
+                <h2>El Arabi Pizza</h2>
+                <div id="bewertung">
+                    <img src="img/rating.png" alt="Sternebwertung">
+                    <p><b>(1021 Bewertungen)</b></p>
+                </div>
+            </div>
+            <div id="orderList">
+                <img src="img/lupe.png" alt="">
+                <p class="gericht">Beliebte Gerichte</p>
+                <p>Salate</p>
+                <p>Pizza</p>
+                <p>Pasta</p>
+                <p>Al Forno</p>
+                <p>Aufläufe</p>
+                <p>Lasagnen</p>
+                <p>Desserts</p>
+            </div>
+            <div id="orderMeals">
+                <div id="orderHeadline">
+                    <h3>Beliebte Gerichte</h3>
+                </div>
+            </div>
+            <div id="gericht">
+                
+            </div>
+        </div>
+        <div id="warenkorb">
+            <div id="warenkorbHeader">
+                <h3>Warenkorb</h3>
+            </div>
+            <div id="warenkorbWaren">
+
+            </div>
+            <div id="warenkorbSum">
+                <div id="zwischensumme">
+                    <p></p>
+                    <p></p>
+                </div>
+                <div id="lieferkosten">
+                    <p></p>
+                    <p></p>
+                </div>
+                <div id="gesamtkosten">
+                    <p><b></b></p>
+                    <p><b></b></p>
+                </div>
+            </div>
+            <div id="orderMin">
+                <p>Lieferungen sind erst ab einem Mindestbestellwert von 15€ möglich (exkl. Lieferkosten). <br>
+                    Ab einem Wert von 30€ entfallen die Lieferkosten</p>
+            </div>
+            <div id="warenkorbBestellen">
+                <button>Bestellen</button>
+            </div>
+        </div>
+
+    </div>
+
 </body>
+
 </html>
