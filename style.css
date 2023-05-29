@@ -13,6 +13,7 @@ body{
     flex-direction: column;
     align-items: center;
     gap: 24px;
+    margin-right: 28%;
 }
 
 #orderImg{
@@ -109,7 +110,7 @@ body{
     border: 1px solid black;
     display: flex;
     justify-content: space-between;
-    
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.567);
 }
 
 .gerichtLeft{
@@ -131,13 +132,15 @@ body{
 /* hier WarenkorbStyle */
 
 #warenkorb{
-    top: 100px;
+    position: fixed;
+    top: 0;
     right: 0;
     bottom: 0;
     display: flex;
     flex-direction: column;
     text-align: center;
     width: 28%;
+    padding-top: 100px;
     border-left: 2px solid black;
     box-shadow: 0 0 4px black;
     background-color: white;

@@ -35,4 +35,8 @@ let menus = [
         "zusatzstoffe": "1, 2, 4, 9",
         "preis": "8.49"
     }
-]
+];
+
+let menuWarenkorb = [];
+let preisWarenkorb = [];
+let mengeWarenkorb = [];
