@@ -40,3 +40,4 @@ let menus = [
 let menuWarenkorb = [];
 let preisWarenkorb = [];
 let mengeWarenkorb = [];
+let notationWarenkorb = [];

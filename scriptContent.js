@@ -36,10 +36,6 @@ function addMenu(i) {
 }
 
 
-function deleteMenu(i) {
-
-}
-
 function getNameMenu(i) {
     return menus[i]["name"];
 }
@@ -55,18 +51,13 @@ function zumWarenkorb(menuName, menuPrice) {
         menuWarenkorb.push(menuName);
         preisWarenkorb.push(menuPrice);
         mengeWarenkorb.push(1);
+        notationWarenkorb.push('');
     } else {
         mengeWarenkorb[getMenuIndex(menuName)]++;
     }
     saveArray();
     renderWarenkorb();
 }
-
-
-// function addAllreadyThere(menuName, menuPrice) {    
-//     let totalPrice = menuPrice * mengeWarenkorb[getMenuIndex(menuName)];
-//     preisWarenkorb[getMenuIndex(menuName)] = totalPrice.toFixed(2);
-// }
 
 
 function getMenuIndex(menu) {
@@ -103,23 +94,45 @@ function waren(warenkorb) {
         const menuname = menuWarenkorb[m];
         const menuprice = Number(preisWarenkorb[m] * mengeWarenkorb[m]).toFixed(2);
         const menuamount = mengeWarenkorb[m];
+        const menunotation = notationWarenkorb[m];
 
         warenkorb.innerHTML += /*html*/`
-        <div class="vollerKorb">
-            <p class="mengeWarenkorb">${menuamount}x</p>          
-            <p class="menuWarenkorb">${menuname}</p>
-            <div class="plusMinus">
-                <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="/img/minus_18px.png"  alt="weniger"></button>
-                <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="/img/plus_18px.png"  alt="mehr"></button>
-                <img class="imgRemark" src="img/edit.svg" alt="Anemerkung" title="Anmerkungen">
+        <div class="basket">
+            <div class="vollerKorb">
+                <p class="mengeWarenkorb">${menuamount}x</p>          
+                <p class="menuWarenkorb">${menuname}</p>
+                <div class="plusMinus">
+                    <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="/img/minus_18px.png"  alt="weniger"></button>
+                    <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="/img/plus_18px.png"  alt="mehr"></button>
+                    <img id="imgNotation${m}" class="imgNotation" onclick="notation(${m})" src="img/edit.svg" alt="Anemerkung" title="Anmerkungen">
+                </div>
+                <div class="priceAndDelete">
+                    <p class="preisWarenkorb">${menuprice}€</p>
+                    <img src="img/delete.svg" onclick="deleteAll(${m})" alt="deleteAll" title="löschen">
+                </div>
             </div>
-            <div class="priceAndDelete">
-                <p class="preisWarenkorb">${menuprice}€</p>
-                <img src="img/delete.svg" onclick="deleteAll(${m})" alt="deleteAll" title="löschen">
-            </div>
+            <div id="annotation${m}" class="annotation"></div>
         </div>
     `
+        askForNotation(m);
     }
+}
+
+
+function askForNotation(m) {
+    if (notationWarenkorb[m] != '') {
+        document.getElementById(`annotation${m}`).innerHTML = /*html*/`
+            
+                <div class="notefield">
+                    ${notationWarenkorb[m]}
+                </div>
+                <div class="iconsNote">
+                    <img src="img/edit.svg" onclick="notation(${m})" alt="Anmerkung ändern" title="Anmerkung ändern">   
+                    <img src="img/close_18.svg" onclick="deleteNotation(${m})" alt="Anmerkung löschen" title="Anmerkung löschen">   
+                </div>      
+            `
+            document.getElementById(`imgNotation${m}`).classList.add('d-none');
+    }    
 }
 
 
@@ -137,6 +150,7 @@ function deleteOne(m) {
         menuWarenkorb.splice(m, 1);
         preisWarenkorb.splice(m, 1);
         mengeWarenkorb.splice(m, 1);
+        notationWarenkorb.splice(m, 1);
     }
     saveArray();
     renderWarenkorb();
@@ -147,15 +161,65 @@ function deleteAll(m) {
     menuWarenkorb.splice(m, 1);
     preisWarenkorb.splice(m, 1);
     mengeWarenkorb.splice(m, 1);
+    notationWarenkorb.splice(m, 1);
     saveArray();
     renderWarenkorb();
 }
+
+
+function notation(m) {
+    let notation = document.getElementById(`annotation${m}`);
+    notation.innerHTML = /*html*/`
+    <div class="notation">
+        <textarea name="Annotation" id="note${m}" maxlength=100 title="Anmerkung">${notationWarenkorb[m]}</textarea>
+        <div class="notationSave">
+            <button class="mini-btn"><img src="img/done_white_18.svg" onclick="saveNotation(${m})" alt=""></button>
+            <button class="mini-btn"><img src="img/close_white_18.svg" onclick="closeNotation(${m})" alt=""></button>
+        </div>
+    </div>
+    `
+}
+
+
+function saveNotation(m) {
+    let note = document.getElementById(`note${m}`).value;
+    notationWarenkorb.splice(m, 1, note);       // ersetzt ein Element an der m-ten Stell durch den wert von note    
+    saveArray();
+    renderWarenkorb();
+}
+
+
+function closeNotation(m){
+    renderWarenkorb();
+}
+
+
+function deleteNotation(m){
+    notationWarenkorb.splice(m, 1, '');
+    saveArray();
+    renderWarenkorb();
+}
+
+
+// function changeNotation(m){
+//     let note = notationWarenkorb[m];
+//     document.getElementById(`annotation${m}`).innerHTML = /*html*/`    
+//     <div class="notation">
+//         <textarea name="Annotation" id="note${m}" maxlength=100 title="Anmerkung">${note}</textarea>
+//         <div class="notationSave">
+//             <button class="mini-btn"><img src="img/done_white_18.svg" onclick="saveNotation(${m})" alt=""></button>
+//             <button class="mini-btn"><img src="img/close_white_18.svg" onclick="closeNotation(${m})" alt=""></button>
+//         </div>
+//     </div>
+// `
+// }
 
 
 function saveArray() {
     localStorage.setItem('meal', JSON.stringify(menuWarenkorb));
     localStorage.setItem('price', JSON.stringify(preisWarenkorb));
     localStorage.setItem('amount', JSON.stringify(mengeWarenkorb));
+    localStorage.setItem('notation', JSON.stringify(notationWarenkorb));
 }
 
 
@@ -163,9 +227,11 @@ function loadArray() {
     let loadMenu = localStorage.getItem('meal');
     let loadPrice = localStorage.getItem('price');
     let loadAmount = localStorage.getItem('amount');
+    let loadNotation = localStorage.getItem('notation');
     if (loadMenu != null) {
         menuWarenkorb = JSON.parse(loadMenu);
         preisWarenkorb = JSON.parse(loadPrice);
         mengeWarenkorb = JSON.parse(loadAmount);
+        notationWarenkorb = JSON.parse(loadNotation);
     }
 }
