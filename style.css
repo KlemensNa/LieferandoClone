@@ -156,6 +156,68 @@ body{
     border-bottom: 1px solid rgba(0, 0, 0, 0.055);
 }
 
+.vollerKorb{
+    display: flex;
+    justify-content: space-between;    
+    align-items: center;
+    padding: 0 16px;    
+}
+
+.vollerKorb img{
+    width: 24px;
+}
+
+.vollerKorb img:hover{
+    cursor: pointer;
+}
+
+.plusMinus{
+    display: flex;
+    gap:4px
+}
+
+.mini-btn{
+    width: 20px;
+    height: 20px;
+    background-color: #FF7F01;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mini-btn:hover{
+    cursor: pointer;
+}
+
+.mini-btn img {
+    width:12px;
+}
+
+.priceAndDelete{
+    display: flex;
+    gap:8px;
+}
+
+.imgRemark{
+    padding-left: 8px;
+}
+
+
+
+
+/* .mengeWarenkorb{
+    padding-left: 16px;
+}
+
+.menuWarenkorb{
+    padding-left: 24px;
+}
+
+.preisWarenkorb{
+    text-align: right;
+} */
+
 #orderMin{
     font-size: 12px;
 }
@@ -168,3 +230,4 @@ body{
     height: 54px;
 
 }
+

@@ -24,29 +24,29 @@ function templateMenu(mealArea, menu, i) {
             <h3>${menu['preis']}€</h3>
         </div>
         <div class="gerichtRight">
-            <img src="img/add.png" alt="Add" onclick="getMenu(${i})">
+            <img src="img/add.png" alt="Add" onclick="addMenu(${i})">
         </div>
     </div>    `
 }
 
-function getMenu(i){
+function addMenu(i) {
     let menuName = getNameMenu(i);
     let menuPrice = getPriceMenu(i);
     zumWarenkorb(menuName, menuPrice);
 }
 
 
-function deleteMenu(i){
-    
+function deleteMenu(i) {
+
 }
 
-function getNameMenu(i){
+function getNameMenu(i) {
     return menus[i]["name"];
 }
 
 
-function getPriceMenu(i){
-    return menus[i]["preis"];
+function getPriceMenu(i) {
+    return Number(menus[i]["preis"]);
 }
 
 
@@ -59,8 +59,14 @@ function zumWarenkorb(menuName, menuPrice) {
         mengeWarenkorb[getMenuIndex(menuName)]++;
     }
     saveArray();
-    render();
+    renderWarenkorb();
 }
+
+
+// function addAllreadyThere(menuName, menuPrice) {    
+//     let totalPrice = menuPrice * mengeWarenkorb[getMenuIndex(menuName)];
+//     preisWarenkorb[getMenuIndex(menuName)] = totalPrice.toFixed(2);
+// }
 
 
 function getMenuIndex(menu) {
@@ -70,7 +76,7 @@ function getMenuIndex(menu) {
 
 function renderWarenkorb() {
     let warenkorb = document.getElementById('warenkorbWaren');
-    if (menuWarenkorb == null) {
+    if (menuWarenkorb == '') {
         keineWaren(warenkorb);
     } else {
         waren(warenkorb);
@@ -91,20 +97,60 @@ function keineWaren(warenkorb) {
 
 
 function waren(warenkorb) {
-        warenkorb.innerHTML = "";
+    warenkorb.innerHTML = "";
 
     for (let m = 0; m < menuWarenkorb.length; m++) {
         const menuname = menuWarenkorb[m];
-        const menuprice = preisWarenkorb[m];
+        const menuprice = Number(preisWarenkorb[m] * mengeWarenkorb[m]).toFixed(2);
         const menuamount = mengeWarenkorb[m];
 
         warenkorb.innerHTML += /*html*/`
         <div class="vollerKorb">
-            <p>${menuamount}x      ${menuname}     ${menuprice}€</p>
+            <p class="mengeWarenkorb">${menuamount}x</p>          
+            <p class="menuWarenkorb">${menuname}</p>
+            <div class="plusMinus">
+                <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="/img/minus_18px.png"  alt="weniger"></button>
+                <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="/img/plus_18px.png"  alt="mehr"></button>
+                <img class="imgRemark" src="img/edit.svg" alt="Anemerkung" title="Anmerkungen">
+            </div>
+            <div class="priceAndDelete">
+                <p class="preisWarenkorb">${menuprice}€</p>
+                <img src="img/delete.svg" onclick="deleteAll(${m})" alt="deleteAll" title="löschen">
+            </div>
         </div>
     `
     }
 }
+
+
+function addOne(m) {
+    mengeWarenkorb[m]++;
+    saveArray();
+    renderWarenkorb();
+}
+
+
+function deleteOne(m) {
+    if (mengeWarenkorb[m] > 1) {
+        mengeWarenkorb[m]--;
+    } else {
+        menuWarenkorb.splice(m, 1);
+        preisWarenkorb.splice(m, 1);
+        mengeWarenkorb.splice(m, 1);
+    }
+    saveArray();
+    renderWarenkorb();
+}
+
+
+function deleteAll(m) {
+    menuWarenkorb.splice(m, 1);
+    preisWarenkorb.splice(m, 1);
+    mengeWarenkorb.splice(m, 1);
+    saveArray();
+    renderWarenkorb();
+}
+
 
 function saveArray() {
     localStorage.setItem('meal', JSON.stringify(menuWarenkorb));
@@ -113,14 +159,13 @@ function saveArray() {
 }
 
 
-function loadArray(){
-    let loadMenu = localStorage.getItem('meal');       
-    let loadPrice = localStorage.getItem('price'); 
-    let loadAmount = localStorage.getItem('amount'); 
-    if (loadMenu != null){                                  
+function loadArray() {
+    let loadMenu = localStorage.getItem('meal');
+    let loadPrice = localStorage.getItem('price');
+    let loadAmount = localStorage.getItem('amount');
+    if (loadMenu != null) {
         menuWarenkorb = JSON.parse(loadMenu);
         preisWarenkorb = JSON.parse(loadPrice);
         mengeWarenkorb = JSON.parse(loadAmount);
-        }
     }
-    
+}
