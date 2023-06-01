@@ -257,6 +257,25 @@ body{
     cursor: pointer;
 }
 
+#zwischensumme{
+    display: flex;
+    padding: 16px;
+    justify-content: space-between;
+}
+
+#lieferkosten{
+    display: flex;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.062);
+    justify-content: space-between; 
+}
+
+#gesamtkosten{
+    display: flex;
+    padding: 16px;
+    border-bottom: 1px double rgba(0, 0, 0, 0.062);
+    justify-content: space-between; 
+}
 
 
 

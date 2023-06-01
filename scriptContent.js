@@ -116,7 +116,67 @@ function waren(warenkorb) {
     `
         askForNotation(m);
     }
+    calcSubtotal();
 }
+
+
+function calcSubtotal(){
+    
+    let subtotal = [];
+    let renderSubtotal = document.getElementById('zwischensumme');
+    let subtotalSum = 0;
+
+    for (let n = 0; n < menuWarenkorb.length; n++) {
+        subtotal[n] = preisWarenkorb[n] * mengeWarenkorb[n];
+    }
+
+    for (let o = 0; o < subtotal.length; o++) {
+        subtotalSum += subtotal[o];      
+    }
+        subtotalSum = Number(subtotalSum).toFixed(2);
+
+    renderSubtotal.innerHTML = /*html*/`
+        <b>Zwischensumme</b>
+        <b>${subtotalSum}€</b>
+    `
+    askForDeliveryCosts(subtotalSum);
+    rendertotalSum(subtotalSum);
+}
+
+
+function askForDeliveryCosts(sub){
+    let deliveryCosts = document.getElementById('lieferkosten');
+    if(sub < 30){
+        deliveryCosts.innerHTML = /*html*/`
+            <p>Lieferkosten</p>
+            <p>4.00€</p>
+        `
+    }else{
+        deliveryCosts.innerHTML = /*html*/`
+            <p>Lieferkosten</p>
+            <p>0.00€</p>
+            `
+    }
+}
+
+
+function rendertotalSum(sub){
+    let totalCosts = document.getElementById('gesamtkosten');
+    let totalWithDelivery = (Number(sub) + 4).toFixed(2);
+    if(sub < 30){
+        totalCosts.innerHTML = /*html*/`
+            <b>Gesamtkosten</b>
+            <b>${totalWithDelivery}€</b>
+        `
+    }else{
+        totalCosts.innerHTML = /*html*/`
+            <b>Gesamtkosten</b>
+            <b>${sub}€</b>
+            `
+    }
+
+}
+
 
 
 function askForNotation(m) {
