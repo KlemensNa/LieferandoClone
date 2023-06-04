@@ -83,7 +83,8 @@ function keineWaren(warenkorb) {
                 <h2>Füge deine Lieblingsspeisen zum Warenkorb dazu</h2>
             </div>
         </div>
-    `
+    `;
+    
 }
 
 
@@ -99,17 +100,22 @@ function waren(warenkorb) {
         warenkorb.innerHTML += /*html*/`
         <div class="basket">
             <div class="vollerKorb">
-                <p class="mengeWarenkorb">${menuamount}x</p>          
-                <p class="menuWarenkorb">${menuname}</p>
-                <div class="plusMinus">
-                    <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="/img/minus_18px.png"  alt="weniger"></button>
-                    <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="/img/plus_18px.png"  alt="mehr"></button>
-                    <img id="imgNotation${m}" class="imgNotation" onclick="notation(${m})" src="img/edit.svg" alt="Anemerkung" title="Anmerkungen">
-                </div>
-                <div class="priceAndDelete">
-                    <p class="preisWarenkorb">${menuprice}€</p>
-                    <img src="img/delete.svg" onclick="deleteAll(${m})" alt="deleteAll" title="löschen">
-                </div>
+                <div class="mengeSpeise">
+                    <p class="mengeWarenkorb">${menuamount}x</p>          
+                    <p class="menuWarenkorb">${menuname}</p>
+                </div>    
+                <div class="addAndPrice">
+                    <div class="plusMinus">
+                        <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="/img/minus_18px.png"  alt="weniger"></button>
+                        <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="/img/plus_18px.png"  alt="mehr"></button>
+                        <img id="imgNotation${m}" class="imgNotation" onclick="notation(${m})" src="img/edit.svg" alt="Anemerkung" title="Anmerkungen">
+                    </div>
+                    <div class="priceAndDelete">
+                        <p class="preisWarenkorb">${menuprice}€</p>
+                        <img src="img/delete.svg" onclick="deleteAll(${m})" alt="deleteAll" title="löschen">
+                    </div>
+                </div>            
+                
             </div>
             <div id="annotation${m}" class="annotation"></div>
         </div>
@@ -128,7 +134,7 @@ function calcSubtotal(){
 
     for (let n = 0; n < menuWarenkorb.length; n++) {
         subtotal[n] = preisWarenkorb[n] * mengeWarenkorb[n];
-    }
+    }    
 
     for (let o = 0; o < subtotal.length; o++) {
         subtotalSum += subtotal[o];      
@@ -139,8 +145,11 @@ function calcSubtotal(){
         <b>Zwischensumme</b>
         <b>${subtotalSum}€</b>
     `
+    showSums();
     askForDeliveryCosts(subtotalSum);
     rendertotalSum(subtotalSum);
+    askForMinValue(subtotalSum);
+
 }
 
 
@@ -148,21 +157,28 @@ function askForDeliveryCosts(sub){
     let deliveryCosts = document.getElementById('lieferkosten');
     if(sub < 30){
         deliveryCosts.innerHTML = /*html*/`
-            <p>Lieferkosten</p>
-            <p>4.00€</p>
-        `
-    }else{
-        deliveryCosts.innerHTML = /*html*/`
-            <p>Lieferkosten</p>
-            <p>0.00€</p>
-            `
-    }
+            <div class="deliveryCosts">
+                <b>Lieferkosten</b>
+                <b>4.00€</b>
+            </div> 
+            <div class="deliveryText">
+                <p>Ab einem Wert von 30€ halbieren sich die Lieferkosten</p>
+            </div>
+            
+        `}else{
+            deliveryCosts.innerHTML = /*html*/`
+            <div class="deliveryCosts">
+                <b>Lieferkosten</b>
+                <b>2.00€</b>
+            </div> `;
+        }
 }
 
 
 function rendertotalSum(sub){
     let totalCosts = document.getElementById('gesamtkosten');
     let totalWithDelivery = (Number(sub) + 4).toFixed(2);
+    let totalHalfDelivery = (Number(sub) + 2).toFixed(2);
     if(sub < 30){
         totalCosts.innerHTML = /*html*/`
             <b>Gesamtkosten</b>
@@ -171,12 +187,24 @@ function rendertotalSum(sub){
     }else{
         totalCosts.innerHTML = /*html*/`
             <b>Gesamtkosten</b>
-            <b>${sub}€</b>
+            <b>${totalHalfDelivery}€</b>
             `
-    }
-
+    }    
 }
 
+
+function askForMinValue(sub){
+    let minValue = document.getElementById('orderMin');
+    let untilOrder = (18 - Number(sub)).toFixed(2);
+    if(sub < 18){
+        minValue.innerHTML = /*html*/`
+            <b>Betrags bis zum Mindestbestellwert</b>
+            <b>${untilOrder}€</b>
+        `
+    }else{
+        minValue.innerHTML = '';
+    }
+}
 
 
 function askForNotation(m) {
@@ -211,6 +239,7 @@ function deleteOne(m) {
         preisWarenkorb.splice(m, 1);
         mengeWarenkorb.splice(m, 1);
         notationWarenkorb.splice(m, 1);
+        deleteSums();
     }
     saveArray();
     renderWarenkorb();
@@ -222,6 +251,7 @@ function deleteAll(m) {
     preisWarenkorb.splice(m, 1);
     mengeWarenkorb.splice(m, 1);
     notationWarenkorb.splice(m, 1);
+    deleteSums();
     saveArray();
     renderWarenkorb();
 }
@@ -261,19 +291,23 @@ function deleteNotation(m){
 }
 
 
-// function changeNotation(m){
-//     let note = notationWarenkorb[m];
-//     document.getElementById(`annotation${m}`).innerHTML = /*html*/`    
-//     <div class="notation">
-//         <textarea name="Annotation" id="note${m}" maxlength=100 title="Anmerkung">${note}</textarea>
-//         <div class="notationSave">
-//             <button class="mini-btn"><img src="img/done_white_18.svg" onclick="saveNotation(${m})" alt=""></button>
-//             <button class="mini-btn"><img src="img/close_white_18.svg" onclick="closeNotation(${m})" alt=""></button>
-//         </div>
-//     </div>
-// `
-// }
+function deleteSums(){
+    document.getElementById('warenkorbSum').classList.add('v-none');
+    document.getElementById('orderMin').classList.add('v-none');
+    document.getElementById('warenkorbBestellen').classList.add('v-none');
+}
 
+
+function showSums(){
+    document.getElementById('warenkorbSum').classList.remove('v-none');
+    document.getElementById('orderMin').classList.remove('v-none');
+    document.getElementById('warenkorbBestellen').classList.remove('v-none');
+    
+}
+
+
+
+            /***Local Storage***/
 
 function saveArray() {
     localStorage.setItem('meal', JSON.stringify(menuWarenkorb));

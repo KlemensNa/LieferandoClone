@@ -1,0 +1,23 @@
+#footer{
+    height: 100px;
+    background-color: #EFEDEA;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 4%;
+}
+
+
+#footerLogo img{
+    width: 60px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+}
+
+a:hover{
+    color: #FF7F01;
+}

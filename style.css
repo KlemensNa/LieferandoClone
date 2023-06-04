@@ -1,6 +1,7 @@
 body{
     margin: 0;
     font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
 }
 
 #content{
@@ -13,7 +14,8 @@ body{
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    margin-right: 28%;
+    margin-bottom: 40px;
+    
 }
 
 #orderImg{
@@ -58,7 +60,7 @@ body{
     gap: 30px;
     justify-content: flex-start;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.048);
+    background-color: #EFEDEA;
     white-space: nowrap;
     overflow-x: scroll;
 }
@@ -86,9 +88,24 @@ body{
     color: #FF7F01;
 }
 
+#maps{    
+    margin-top: 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#maps h2{
+    width: 50%;    
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.567);
+    text-align: center;
+}
+
 #orderMeals{
     width: calc(100% - 80px);
-    background-color: rgba(0, 0, 0, 0.048);    
+    background-color: #EFEDEA;    
 }
 
 #orderMeals h3{
@@ -126,24 +143,22 @@ body{
     cursor: pointer;
 }
 
-
-
-
-/* hier WarenkorbStyle */
+/* WarenkorbStyle */
 
 #warenkorb{
-    position: fixed;
+    position: sticky;
     top: 0;
-    right: 0;
-    bottom: 0;
+    height:120vh;
+    padding-bottom: 40px;
     display: flex;
     flex-direction: column;
     text-align: center;
     width: 28%;
-    padding-top: 100px;
-    border-left: 2px solid black;
-    box-shadow: 0 0 4px black;
+    border-left: 2px solid #EFEDEA;
+    box-shadow: 0 0px 6px -6px #EFEDEA;
     background-color: white;
+    overflow-y: hidden;
+
 }
 
 #warenkorbHeader{
@@ -157,7 +172,7 @@ body{
 }
 
 .basket{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.062);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.062); */
     padding: 16px 0;
 }
 
@@ -165,8 +180,8 @@ body{
     display: flex;
     justify-content: space-between;    
     align-items: center;
-    padding: 0 16px;    
-    
+    padding: 0 16px;  
+    font-size: 16px;
 }
 
 .vollerKorb img{
@@ -175,6 +190,19 @@ body{
 
 .vollerKorb img:hover{
     cursor: pointer;
+}
+
+.mengeSpeise{
+    display: flex;
+    gap: 8px;
+}
+
+.addAndPrice{
+    display: flex;
+    flex: 1;
+    justify-content: right;
+    align-items: center;
+    gap: 40px
 }
 
 .plusMinus{
@@ -259,46 +287,99 @@ body{
 
 #zwischensumme{
     display: flex;
+    color: grey;
     padding: 16px;
     justify-content: space-between;
+    border-top: 1px solid rgba(0, 0, 0, 0.062);  
 }
 
 #lieferkosten{
     display: flex;
+    flex-direction: column;
+    color: grey;
     padding: 0 16px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.062);
-    justify-content: space-between; 
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.062);      */
+}
+
+.deliveryCosts{
+    display: flex;
+    justify-content: space-between;
+}
+
+.deliveryText{
+    text-align: left;
+    font-size: 12px;
 }
 
 #gesamtkosten{
     display: flex;
     padding: 16px;
-    border-bottom: 1px double rgba(0, 0, 0, 0.062);
+    font-weight: bold;
+    /* border-bottom: 1px double rgba(0, 0, 0, 0.062); */
     justify-content: space-between; 
 }
 
-
-
-
-
-
-
-
-
 #orderMin{
+    display: flex;
+    padding: 16px;
+    color: rgb(255, 0, 0);
+    justify-content: space-between;
     font-size: 12px;
 }
 
 #warenkorbBestellen button{
+    margin-top: 24px;
     border: none;
-    background-color: #FF7F01;
+    background-color: #ff8001;
     color: white;
     width: calc(100% - 30%);
     height: 54px;
-
 }
 
+
+#impressumData{
+    padding: 40px;
+    min-height: 75vh;
+}
+
+#datenschutz{
+    margin: 40px;
+    padding:24px;
+    width: 80%;
+    border: 1px solid rgba(0, 0, 0, 0.108);   
+    
+}
+
+#datenschutz a{
+    word-wrap: break-word;
+}
+
+#about{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40px;
+    word-wrap: break-word;
+    text-align: center;
+    min-height: 80vh;
+}
+
+.home{
+    margin-top: 16px;
+    padding-left: 40px;
+}
 
 .d-none{
     visibility: hidden;
 }
+
+.v-none{
+    display: none !important;
+}
+
+
+/* @media(max-width:1200px){
+    #orderImg img{
+        height:200px;
+    }
+} */
