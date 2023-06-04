@@ -7,6 +7,10 @@
     padding: 24px 4%;
 }
 
+#copyright{
+    display: flex;
+    align-items: center;
+}
 
 #footerLogo img{
     width: 60px;
@@ -20,4 +24,36 @@ a{
 
 a:hover{
     color: #FF7F01;
+}
+
+@media(max-width: 992px){
+    #copyright{
+        font-size: 12px;
+    }
+}
+
+@media(max-width: 768px){
+    #footerLogo img{
+        width: 45px;
+    }
+
+    #copyright{
+        flex-direction: column;
+    }
+
+    #impressum{
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    #impressum span{
+        display: none;
+    }
+}
+
+@media(max-width: 460px){
+    #footerLogo{
+        display: none;
+    }     
 }

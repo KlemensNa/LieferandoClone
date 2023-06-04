@@ -2,6 +2,7 @@ function render() {
     loadArray();
     renderMeals();
     renderWarenkorb();
+    counterWarenkorb();
 }
 
 function renderMeals() {
@@ -20,7 +21,6 @@ function templateMenu(mealArea, menu, i) {
         <div class="gerichtLeft">
             <h3 id="menuname${i}">${menu['name']}</h3>
             <p id ="price${i}">${menu['zutaten']}</p>
-            <p>${menu['zusatzstoffe']}</p>
             <h3>${menu['preis']}€</h3>
         </div>
         <div class="gerichtRight">
@@ -84,7 +84,8 @@ function keineWaren(warenkorb) {
             </div>
         </div>
     `;
-    
+    counterWarenkorb();
+
 }
 
 
@@ -104,12 +105,7 @@ function waren(warenkorb) {
                     <p class="mengeWarenkorb">${menuamount}x</p>          
                     <p class="menuWarenkorb">${menuname}</p>
                 </div>    
-                <div class="addAndPrice">
-                    <div class="plusMinus">
-                        <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="/img/minus_18px.png"  alt="weniger"></button>
-                        <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="/img/plus_18px.png"  alt="mehr"></button>
-                        <img id="imgNotation${m}" class="imgNotation" onclick="notation(${m})" src="img/edit.svg" alt="Anemerkung" title="Anmerkungen">
-                    </div>
+                <div class="addAndPrice">                    
                     <div class="priceAndDelete">
                         <p class="preisWarenkorb">${menuprice}€</p>
                         <img src="img/delete.svg" onclick="deleteAll(${m})" alt="deleteAll" title="löschen">
@@ -117,29 +113,39 @@ function waren(warenkorb) {
                 </div>            
                 
             </div>
-            <div id="annotation${m}" class="annotation"></div>
+            <div class="addAndNote">
+                <div class="plusMinus">
+                    <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="/img/minus_18px.png"  alt="weniger"></button>
+                    <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="/img/plus_18px.png"  alt="mehr"></button>
+                </div>
+                <div class="notes">
+                    <div id="annotation${m}" class="annotation"></div>
+                    <img id="imgNotation${m}" class="imgNotation" onclick="notation(${m})" src="img/edit.svg" alt="Anemerkung" title="Anmerkungen">
+                </div>            
+            </div>            
         </div>
     `
         askForNotation(m);
     }
     calcSubtotal();
+    counterWarenkorb();
 }
 
 
-function calcSubtotal(){
-    
+function calcSubtotal() {
+
     let subtotal = [];
     let renderSubtotal = document.getElementById('zwischensumme');
     let subtotalSum = 0;
 
     for (let n = 0; n < menuWarenkorb.length; n++) {
         subtotal[n] = preisWarenkorb[n] * mengeWarenkorb[n];
-    }    
+    }
 
     for (let o = 0; o < subtotal.length; o++) {
-        subtotalSum += subtotal[o];      
+        subtotalSum += subtotal[o];
     }
-        subtotalSum = Number(subtotalSum).toFixed(2);
+    subtotalSum = Number(subtotalSum).toFixed(2);
 
     renderSubtotal.innerHTML = /*html*/`
         <b>Zwischensumme</b>
@@ -153,9 +159,9 @@ function calcSubtotal(){
 }
 
 
-function askForDeliveryCosts(sub){
+function askForDeliveryCosts(sub) {
     let deliveryCosts = document.getElementById('lieferkosten');
-    if(sub < 30){
+    if (sub < 30) {
         deliveryCosts.innerHTML = /*html*/`
             <div class="deliveryCosts">
                 <b>Lieferkosten</b>
@@ -165,43 +171,43 @@ function askForDeliveryCosts(sub){
                 <p>Ab einem Wert von 30€ halbieren sich die Lieferkosten</p>
             </div>
             
-        `}else{
-            deliveryCosts.innerHTML = /*html*/`
+        `} else {
+        deliveryCosts.innerHTML = /*html*/`
             <div class="deliveryCosts">
                 <b>Lieferkosten</b>
                 <b>2.00€</b>
             </div> `;
-        }
+    }
 }
 
 
-function rendertotalSum(sub){
+function rendertotalSum(sub) {
     let totalCosts = document.getElementById('gesamtkosten');
     let totalWithDelivery = (Number(sub) + 4).toFixed(2);
     let totalHalfDelivery = (Number(sub) + 2).toFixed(2);
-    if(sub < 30){
+    if (sub < 30) {
         totalCosts.innerHTML = /*html*/`
             <b>Gesamtkosten</b>
             <b>${totalWithDelivery}€</b>
         `
-    }else{
+    } else {
         totalCosts.innerHTML = /*html*/`
             <b>Gesamtkosten</b>
             <b>${totalHalfDelivery}€</b>
             `
-    }    
+    }
 }
 
 
-function askForMinValue(sub){
+function askForMinValue(sub) {
     let minValue = document.getElementById('orderMin');
     let untilOrder = (18 - Number(sub)).toFixed(2);
-    if(sub < 18){
+    if (sub < 18) {
         minValue.innerHTML = /*html*/`
             <b>Betrags bis zum Mindestbestellwert</b>
             <b>${untilOrder}€</b>
         `
-    }else{
+    } else {
         minValue.innerHTML = '';
     }
 }
@@ -219,8 +225,8 @@ function askForNotation(m) {
                     <img src="img/close_18.svg" onclick="deleteNotation(${m})" alt="Anmerkung löschen" title="Anmerkung löschen">   
                 </div>      
             `
-            document.getElementById(`imgNotation${m}`).classList.add('d-none');
-    }    
+        document.getElementById(`imgNotation${m}`).classList.add('v-none');
+    }
 }
 
 
@@ -279,35 +285,66 @@ function saveNotation(m) {
 }
 
 
-function closeNotation(m){
+function closeNotation(m) {
     renderWarenkorb();
 }
 
 
-function deleteNotation(m){
+function deleteNotation(m) {
     notationWarenkorb.splice(m, 1, '');
     saveArray();
     renderWarenkorb();
 }
 
 
-function deleteSums(){
+function deleteSums() {
     document.getElementById('warenkorbSum').classList.add('v-none');
     document.getElementById('orderMin').classList.add('v-none');
     document.getElementById('warenkorbBestellen').classList.add('v-none');
 }
 
 
-function showSums(){
+function showSums() {
     document.getElementById('warenkorbSum').classList.remove('v-none');
     document.getElementById('orderMin').classList.remove('v-none');
     document.getElementById('warenkorbBestellen').classList.remove('v-none');
-    
+
+}
+
+
+function counterWarenkorb() {
+    let counter = menuWarenkorb.length;
+    let warenkorbCounter = document.getElementById('counter');
+    warenkorbCounter.innerHTML = '';
+    if (counter > 0) {
+        warenkorbCounter.innerHTML +=/*html*/`
+        ${counter}
+    `
+    } else {
+        return
+    }
+}
+
+
+function openWarenkorb(){
+    let warenkorb = document.getElementById('warenkorb');
+    let closeBtn = document.getElementById('closeBtn');
+
+    warenkorb.style.display = "flex";
+    closeBtn.style.display = "block";    
+}
+
+
+function closeWarenkorb(){
+    let warenkorb = document.getElementById('warenkorb');
+    let closeBtn = document.getElementById('closeBtn');
+    warenkorb.style.display = "none";
+    closeBtn.style.display = "none";
 }
 
 
 
-            /***Local Storage***/
+/***Local Storage***/
 
 function saveArray() {
     localStorage.setItem('meal', JSON.stringify(menuWarenkorb));
