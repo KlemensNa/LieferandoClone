@@ -2,7 +2,6 @@ function render() {
     loadArray();
     renderMeals();
     renderWarenkorb();
-    counterWarenkorb();
 }
 
 function renderMeals() {
@@ -10,8 +9,7 @@ function renderMeals() {
 
     for (let i = 0; i < menus.length; i++) {
         let menu = menus[i];
-        templateMenu(mealArea, menu, i)
-
+        templateMenu(mealArea, menu, i);
     }
 }
 
@@ -85,7 +83,6 @@ function keineWaren(warenkorb) {
         </div>
     `;
     counterWarenkorb();
-
 }
 
 
@@ -115,8 +112,8 @@ function waren(warenkorb) {
             </div>
             <div class="addAndNote">
                 <div class="plusMinus">
-                    <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="/img/minus_18px.png"  alt="weniger"></button>
-                    <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="/img/plus_18px.png"  alt="mehr"></button>
+                    <button class="mini-btn" onclick="deleteOne(${m})" title="hinzufügen"><img src="img/minus_18px.png"  alt="weniger"></button>
+                    <button class="mini-btn" onclick="addOne(${m})" title="entfernen"><img src="img/plus_18px.png"  alt="mehr"></button>
                 </div>
                 <div class="notes">
                     <div id="annotation${m}" class="annotation"></div>
@@ -133,7 +130,6 @@ function waren(warenkorb) {
 
 
 function calcSubtotal() {
-
     let subtotal = [];
     let renderSubtotal = document.getElementById('zwischensumme');
     let subtotalSum = 0;
@@ -155,7 +151,6 @@ function calcSubtotal() {
     askForDeliveryCosts(subtotalSum);
     rendertotalSum(subtotalSum);
     askForMinValue(subtotalSum);
-
 }
 
 
@@ -308,7 +303,6 @@ function showSums() {
     document.getElementById('warenkorbSum').classList.remove('v-none');
     document.getElementById('orderMin').classList.remove('v-none');
     document.getElementById('warenkorbBestellen').classList.remove('v-none');
-
 }
 
 
@@ -326,22 +320,19 @@ function counterWarenkorb() {
 }
 
 
-function openWarenkorb(){
+function changeWarenkorb() {
     let warenkorb = document.getElementById('warenkorb');
     let closeBtn = document.getElementById('closeBtn');
 
-    warenkorb.style.display = "flex";
-    closeBtn.style.display = "block";    
+    warenkorb.classList.toggle('d-flex');
+    closeBtn.classList.toggle('d-block');
 }
 
 
-function closeWarenkorb(){
-    let warenkorb = document.getElementById('warenkorb');
-    let closeBtn = document.getElementById('closeBtn');
-    warenkorb.style.display = "none";
-    closeBtn.style.display = "none";
+function noFunction(){
+    alert('Button still has no function');
+    return;
 }
-
 
 
 /***Local Storage***/

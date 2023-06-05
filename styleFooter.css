@@ -44,7 +44,7 @@ a:hover{
     #impressum{
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 12px;
     }
 
     #impressum span{

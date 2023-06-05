@@ -9,21 +9,42 @@
     <link rel="stylesheet" href="styleHeader.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styleFooter.css">
-    <script src="scriptTemplates.js"></script>
-    <script src="scriptContent.js"></script>
-    <script src="scriptArrays.js"></script>
+    <script src="scriptTemplates.js" async></script>
+    <script src="scriptContent.js" async></script>
+    <script src="scriptArrays.js" async></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <title>Fooderando</title>
 </head>
 
 <body onload="includeHTML(), render()">
-    <div w3-include-html="templates/header.html"></div>
+    <div id="header">
+        <div id="header-left">
+            <a href="index.html"><img src="img/mealIcon.png" alt="HomeIcon"></a>
+            <p><b>Fooderando</b>.de</p>
+        </div>
+        <div id="header-middle">
+            <h3>Zschochersche Straße 33a, Leipzig</h3>
+        </div>
+        <div id="header-right">
+            <img class ="flag" src="img/ger.png" alt="deutsch">
+            <div id="basketHeader" onclick = "changeWarenkorb()">
+                <img src="img/shopping-basket-white-24.svg" alt="Einkaufswagen" title="Einkaufswagen">
+                <span id="counter"></span>            
+            </div>
+            <div id="burgerMenu" onclick="noFunction()">
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+    </div>
     <div id="content">
         <div id="orderMenu">
             <div id="orderImg">
-                <img src="/img/pizza2.jpg" alt="">
+                <img src="img/pizza2.jpg" alt="">
             </div>
             <div id="orderRestaurant">
                 <h2>El Arabi Pizza</h2>
@@ -35,37 +56,40 @@
             <div id="orderList">
                 <img src="img/lupe.png" alt="">
                 <p class="gericht">Beliebte Gerichte</p>
-                <p>Salate</p>
-                <p>Pizza</p>
-                <p>Pasta</p>
-                <p>Al Forno</p>
-                <p>Aufläufe</p>
-                <p>Lasagnen</p>
-                <p>Desserts</p>
+                <p onclick="noFunction()">Salate</p>
+                <p onclick="noFunction()">Pizza</p>
+                <p onclick="noFunction()">Pasta</p>
+                <p onclick="noFunction()">Al Forno</p>
+                <p onclick="noFunction()">Aufläufe</p>
+                <p onclick="noFunction()">Lasagnen</p>
+                <p onclick="noFunction()">Desserts</p>
             </div>
             <div id="orderMeals">
                 <div id="orderHeadline">
                     <h3>Beliebte Gerichte</h3>
                 </div>
             </div>
-            <div id="gericht">                
+            <div id="gericht">
             </div>
             <div id="maps">
                 <div class="halfLine"></div>
                 <h2>Find us</h2>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2492.9041047527085!2d12.335701176241018!3d51.33128362355443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a6f79ee27b8643%3A0xbea2b8a633fa3f8b!2sEl-Arabi!5e0!3m2!1sde!2sde!4v1685792555408!5m2!1sde!2sde" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2492.9041047527085!2d12.335701176241018!3d51.33128362355443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a6f79ee27b8643%3A0xbea2b8a633fa3f8b!2sEl-Arabi!5e0!3m2!1sde!2sde!4v1685792555408!5m2!1sde!2sde"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
         <div id="warenkorb">
-            <div id="warenkorbHeader" >
+            <div id="warenkorbHeader">
                 <h3>Warenkorb</h3>
             </div>
             <div id="warenkorbWaren">
             </div>
             <div id="warenkorbSum">
-                <div id="zwischensumme">                    
+                <div id="zwischensumme">
                 </div>
-                <div id="lieferkosten">                    
+                <div id="lieferkosten">
                 </div>
                 <div id="gesamtkosten">
                 </div>
@@ -73,11 +97,10 @@
             <div id="orderMin">
             </div>
             <div id="warenkorbBestellen">
-                <button onclick="ordern()">Bestellen</button>
+                <button onclick="noFunction()">Bestellen</button>
             </div>
-            <button id="closeBtn" onclick="closeWarenkorb()">X Close</button>
+            <button id="closeBtn" onclick="changeWarenkorb()">X Close</button>
         </div>
-
     </div>
     <div w3-include-html="templates/footer.html"></div>
 </body>
