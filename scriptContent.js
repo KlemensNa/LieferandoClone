@@ -147,7 +147,7 @@ function calcSubtotal() {
         <b>Zwischensumme</b>
         <b>${subtotalSum}€</b>
     `
-    showSums();
+    visibilitySums();
     askForDeliveryCosts(subtotalSum);
     rendertotalSum(subtotalSum);
     askForMinValue(subtotalSum);
@@ -240,7 +240,7 @@ function deleteOne(m) {
         preisWarenkorb.splice(m, 1);
         mengeWarenkorb.splice(m, 1);
         notationWarenkorb.splice(m, 1);
-        deleteSums();
+        visibilitySums("remove");
     }
     saveArray();
     renderWarenkorb();
@@ -252,7 +252,7 @@ function deleteAll(m) {
     preisWarenkorb.splice(m, 1);
     mengeWarenkorb.splice(m, 1);
     notationWarenkorb.splice(m, 1);
-    deleteSums();
+    visibilitySums("remove");
     saveArray();
     renderWarenkorb();
 }
@@ -292,17 +292,16 @@ function deleteNotation(m) {
 }
 
 
-function deleteSums() {
-    document.getElementById('warenkorbSum').classList.add('v-none');
-    document.getElementById('orderMin').classList.add('v-none');
-    document.getElementById('warenkorbBestellen').classList.add('v-none');
-}
-
-
-function showSums() {
-    document.getElementById('warenkorbSum').classList.remove('v-none');
-    document.getElementById('orderMin').classList.remove('v-none');
-    document.getElementById('warenkorbBestellen').classList.remove('v-none');
+function visibilitySums(x){
+    if(x === "remove"){
+        document.getElementById('warenkorbSum').classList.add('v-none');
+        document.getElementById('orderMin').classList.add('v-none');
+        document.getElementById('warenkorbBestellen').classList.add('v-none');
+    }else{
+        document.getElementById('warenkorbSum').classList.remove('v-none');
+        document.getElementById('orderMin').classList.remove('v-none');
+        document.getElementById('warenkorbBestellen').classList.remove('v-none');
+    }
 }
 
 
@@ -323,9 +322,11 @@ function counterWarenkorb() {
 function changeWarenkorb() {
     let warenkorb = document.getElementById('warenkorb');
     let closeBtn = document.getElementById('closeBtn');
+    let main = document.getElementById('orderMenu');
 
     warenkorb.classList.toggle('d-flex');
     closeBtn.classList.toggle('d-block');
+    main.classList.toggle('v-none');
 }
 
 

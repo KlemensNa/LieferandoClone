@@ -20,7 +20,27 @@
 </head>
 
 <body onload="includeHTML()">
-    <div w3-include-html="templates/header.html"></div>
+    <div id="header">
+        <div id="header-left">
+            <a href="index.html"><img src="img/mealIcon.png" alt="HomeIcon"></a>
+            <p><b>Fooderando</b>.de</p>
+        </div>
+        <div id="header-middle">
+            <h3>Zschochersche Straße 33a, Leipzig</h3>
+        </div>
+        <div id="header-right">
+            <img class ="flag" src="img/ger.png" alt="deutsch">
+            <div id="basketHeader" onclick = "changeWarenkorb()">
+                <img src="img/shopping-basket-white-24.svg" alt="Einkaufswagen" title="Einkaufswagen">
+                <span id="counter"></span>            
+            </div>
+            <div id="burgerMenu" onclick="noFunction()">
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+    </div>
     <a class="home" href="index.html"><img src="img/home_black_24dp.svg" alt=""></a> 
     <div id="impressumData">
         <h1>Impressum</h1>
